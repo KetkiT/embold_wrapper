@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.embold.embold_wrapper</groupId>
+	<artifactId>embold</artifactId>
+	<packaging>pom</packaging>
+	<version>develop</version>
+	<name>embold_wrapper</name>
+	<url>http://maven.apache.org</url>
+	<scm>
+		<connection>scm:git:git://github.com/KetkiT/embold_wrapper</connection>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<embold.version>0.0.1-SNAPSHOT</embold.version>
+		<junit.version>4.5</junit.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<slf4j-api.version>1.7.25</slf4j-api.version>
+		<log4j.version>2.8.2</log4j.version>
+		<commons-config.version>1.7</commons-config.version>
+		<compileSource>1.7</compileSource>
+		<commons-io.version>2.4</commons-io.version>
+	</properties>
+
+	<build>
+	<!--<pluginManagement>-->
+		<plugins>
+			<plugin>
+				<groupId>org.openclover</groupId>
+				<artifactId>clover-maven-plugin</artifactId>
+				<version>4.2.0</version>
+				<configuration>
+					<generateXml>true</generateXml>
+					<generateHtml>true</generateHtml>
+					<generatePdf>false</generatePdf>
+					<generateJson>false</generateJson>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>site</phase>
+						<goals>
+							<goal>instrument</goal>
+							<goal>clover</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<!--<version>1.1.0-SNAPSHOT</version>-->
+				<configuration>
+				</configuration>
+				<executions>
+				<execution>
+					<id>flatten</id>
+					<phase>process-resources</phase>
+					<goals>
+					<goal>flatten</goal>
+					</goals>
+				</execution>
+				</executions>
+      </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>create-timestamp-id</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>create-timestamp</goal>
+						</goals>
+						<configuration>
+							<timestampFormat>yyyy-MM-dd_HH-mm-ss-S</timestampFormat>
+							<timestampPropertyName>buildTimestamp</timestampPropertyName>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${compileSource}</source>
+					<target>${compileSource}</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+		<!--</pluginManagement>-->
+	</build>
+
+	<distributionManagement>
+   <repository>
+	    <id>central</id>
+	    <name>Internal Release Repository</name>
+	    <url>http://5.189.134.179:8081/artifactory/libs-release-local</url>
+   </repository>
+   <snapshotRepository>
+      <id>snapshots</id>
+      <name>Internal Snapshot Repository</name>
+      <url>http://5.189.134.179:8081/artifactory/libs-snapshot-local</url>
+   </snapshotRepository>
+ </distributionManagement>
+
+ <repositories>
+   <repository>
+      <id>central</id>
+      <url>http://5.189.134.179:8081/artifactory/libs-release</url>
+      <snapshots>
+         <enabled>true</enabled>
+      </snapshots>
+   </repository>
+   <repository>
+      <id>snapshots</id>
+      <url>http://5.189.134.179:8081/artifactory/libs-snapshot</url>
+      <releases>
+         <enabled>true</enabled>
+      </releases>
+   </repository>
+	</repositories> 
+
+	<dependencies>
+
+		<!-- New log4j2 libs -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+		<!-- New log4j2 libs -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<!-- Bridge for third-party code still using log4j12 to route to log4j2 -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-1.2-api</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+
+		<!-- Needed for the SLF4J API -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+
+		<!-- Needed for the SLF4J Binding for Log4j2 -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-slf4j-impl</artifactId>
+		    <version>${log4j.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-configuration</groupId>
+			<artifactId>commons-configuration</artifactId>
+			<version>${commons-config.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		
+		
+		
+	</dependencies>
+	<modules>
+		<module>emboldwrapper</module>
+		<!-- WARNING! - distribution should be the last module, because of some open ordering issue -->
+		<module>distribution</module>
+
+	</modules>
+</project>

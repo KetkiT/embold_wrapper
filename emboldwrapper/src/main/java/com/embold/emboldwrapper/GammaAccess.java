@@ -21,7 +21,13 @@ public class GammaAccess {
 		password = JsonConfig.getString(jsonObject, EmboldConstants.GA_PASSWORD);
 		token = JsonConfig.getString(jsonObject, EmboldConstants.GA_TOKEN);
 	}
-
+	
+	public GammaAccess(String url,String userName,String password,String accessToken) {
+		this.url = url;
+		this.userName = userName;
+		this.password = password;
+		this.token = accessToken;
+	}
 	public GammaAccess(JsonObject jsonObject) throws EmboldWrapperException {
 		parseJsonObject(jsonObject);
 	}

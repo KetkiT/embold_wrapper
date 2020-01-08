@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.embold.emboldwrapper.env.CoronaHome;
 import com.embold.emboldwrapper.exception.EmboldWrapperException;
+import com.embold.emboldwrapper.logger.ProgressLogger;
 import com.embold.emboldwrapper.utility.FileUtility;
 
 public class Downloader {

@@ -8,6 +8,7 @@ package com.embold.emboldwrapper.opt;
 public enum EmboldWrapperOpt {
 
 	DISABLE_UPDATE("disbaleUpdate","Disable Update Check"),
+	VERBOSE("v","verbose"),
 	SCAN_JSON("c", "scansetting json");
 	
 	private String name;

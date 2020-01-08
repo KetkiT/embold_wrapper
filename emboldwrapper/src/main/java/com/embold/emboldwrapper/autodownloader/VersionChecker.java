@@ -40,7 +40,7 @@ public class VersionChecker {
 				continue;
 			}
 			String fileName = file.getAbsolutePath();
-			versionNumber = StringUtils.substringBetween(fileName, "buildNumber-", ".");
+			versionNumber = StringUtils.substringBetween(fileName, "buildNumber-", ".properties");
 			logger.info("Current version of corona : " + versionNumber);
 			FileInputStream fis = null;
 			try {

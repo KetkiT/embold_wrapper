@@ -108,7 +108,7 @@ public class FileUtility {
 		File directory = new File(path);
 		if (directory.exists()) {
 			try {
-				logger.info("Directory " + path + " already exists. Deleting existing directory");
+				logger.debug("Directory " + path + " already exists. Deleting existing directory");
 				FileUtils.deleteDirectory(directory);
 			} catch (IOException e) {
 				throw new EmboldWrapperException("Error occurred while deleting directory", e);
@@ -132,7 +132,7 @@ public class FileUtility {
 		File destination = new File(coronaNew);
 		File coronaCliFile = new File(coronaCliFilePath);
 		if (!coronaCliFile.exists()) {
-			logger.info(" " + coronaCliFilePath + " does not exist.\n Skipping back up.");
+			logger.debug(" " + coronaCliFilePath + " does not exist.\n Skipping back up.");
 			return;
 		}
 		try {
@@ -147,7 +147,6 @@ public class FileUtility {
 	}
 
 	public static void backUpExistingCorona(File coronaHome, File backupDir) throws EmboldWrapperException {
-		logger.info("Taking backup");
 		try {
 			if (backupDir.exists()) {
 				FileUtils.deleteDirectory(backupDir);
@@ -157,7 +156,6 @@ public class FileUtility {
 		} catch (IOException e) {
 			throw new EmboldWrapperException("Error occurred while taking backup of existing corona", e);
 		}
-		logger.info("Backup taken at : " + backupDir);
 	}
 
 	public static void copyDir(File sourceFolder, File destinationFolder) throws IOException {
@@ -173,7 +171,7 @@ public class FileUtility {
 		for (File f : sourceFiles) {
 			if (f.isDirectory()) {
 				FileUtils.copyDirectory(f,
-						new File(destinationFolder.getAbsolutePath() + File.separator + f.getName()));
+						new File(destinationFolder.getAbsolutePath() + File.separator + f.getName()),false);
 			} else {
 				FileUtils.copyFileToDirectory(f, destinationFolder);
 			}
@@ -206,9 +204,7 @@ public class FileUtility {
 			copyDir(sourceFolder, destinationFolder);
 		} catch (IOException e) {
 			throw new EmboldWrapperException(
-					"Error occurred while retrieving original corona. \n Original corona is kept at location :"
-							+ destinationFolder.getAbsolutePath(),
-					e);
+					"Error occurred while retrieving original corona.",e);
 		}
 	}
 

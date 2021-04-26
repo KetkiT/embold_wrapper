@@ -20,7 +20,7 @@
 		<log4j.version>2.8.2</log4j.version>
 		<commons-config.version>1.7</commons-config.version>
 		<compileSource>1.7</compileSource>
-		<commons-io.version>2.4</commons-io.version>
+		<commons-io.version>2.7</commons-io.version>
 	</properties>
 
 	<build>
